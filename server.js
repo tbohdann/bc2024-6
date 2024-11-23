@@ -62,7 +62,6 @@ app.put('/notes/:name', (req, res) => {
     if (!fs.existsSync(notePath)) {
         return res.status(404).send('Note not found');
     }
-
     fs.writeFile(notePath, noteContent, 'utf8', (err) => {
         if (err) {
             return res.status(500).json({ message: 'Server error', error: err });

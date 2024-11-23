@@ -11,7 +11,6 @@ program
     .option('-p, --port <port>', 'Server port', 3000)
     .option('-c, --cache <cacheDir>', 'Path to cache directory', './cache');
 
-    
 program.parse();
 const options = program.opts();
 

@@ -5,11 +5,12 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const swaggerUi = require('swagger-ui-express');
 
 program
-    .option('-h, --host <host>', 'Server address', '0.0.0.0')
-    .option('-p, --port <port>', 'Server port', 3000)
-    .option('-c, --cache <cacheDir>', 'Path to cache directory', './cache')
+.option('-h, --host <host>', 'Server address', '0.0.0.0')
+.option('-p, --port <port>', 'Server port', 3000)
+.option('-c, --cache <cacheDir>', 'Path to cache directory', './cache')
 
 program.parse();
 const options = program.opts();
@@ -37,6 +38,8 @@ const app = express();
 app.use(bodyParser.text());
 app.use(multer().none());
 app.use(express.json());
+const swaggerDocs = require('./swagger.json');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.get('/notes/:name', (req, res) => {
     const noteName = req.params.name;

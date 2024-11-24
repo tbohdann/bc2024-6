@@ -1,0 +1,177 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Notes API",
+      "version": "1.0.0",
+      "description": "API for managing notes"
+    },
+    "servers": [
+      {
+        "url": "http://127.0.0.1:3000",
+        "description": "Development server"
+      }
+    ],
+    "paths": {
+      "/notes/{name}": {
+        "get": {
+          "summary": "Get a note by name",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Name of the note to retrieve"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Note found and returned",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Note not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a note by name",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Name of the note to update"
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "description": "The content of the note"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Note successfully updated"
+            },
+            "400": {
+              "description": "Note content is required"
+            },
+            "404": {
+              "description": "Note not found"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a note by name",
+          "parameters": [
+            {
+              "name": "name",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "description": "Name of the note to delete"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Note successfully deleted"
+            },
+            "404": {
+              "description": "Note not found"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      },
+      "/write": {
+        "post": {
+          "summary": "Create a new note",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "note_name": {
+                      "type": "string",
+                      "description": "The name of the note"
+                    },
+                    "note": {
+                      "type": "string",
+                      "description": "The content of the note"
+                    }
+                  },
+                  "required": ["note_name", "note"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Note successfully created"
+            },
+            "400": {
+              "description": "A note with this name already exists"
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        }
+      },
+      "/notes": {
+        "get": {
+          "summary": "Get all notes",
+          "responses": {
+            "200": {
+              "description": "List of all notes",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  

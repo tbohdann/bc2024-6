@@ -35,4 +35,4 @@ COPY . .
 EXPOSE 3000
 
 # Run the application.
-CMD npm run start
+CMD npx nodemon -L --inspect=0.0.0.0 server.js

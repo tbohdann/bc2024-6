@@ -9,7 +9,7 @@ const multer = require('multer');
 program
     .option('-h, --host <host>', 'Server address', '0.0.0.0')
     .option('-p, --port <port>', 'Server port', 3000)
-    .option('-c, --cache <cacheDir>', 'Path to cache directory', './cache');
+    .option('-c, --cache <cacheDir>', 'Path to cache directory', './cache')
 
 program.parse();
 const options = program.opts();
@@ -53,7 +53,7 @@ app.get('/notes/:name', (req, res) => {
 app.put('/notes/:name', (req, res) => {
     const noteName = req.params.name;
     const notePath = path.join(options.cache, `${noteName}.txt`);
-    const noteContent = typeof req.body === 'object' ? req.body.text : req.body;
+    const noteContent = req.body;
 
     if (!noteContent) {
         return res.status(400).send('Note content is required');

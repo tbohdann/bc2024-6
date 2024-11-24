@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 
 program
-    .option('-h, --host <host>', 'Server address', 'localhost')
+    .option('-h, --host <host>', 'Server address', '0.0.0.0')
     .option('-p, --port <port>', 'Server port', 3000)
     .option('-c, --cache <cacheDir>', 'Path to cache directory', './cache');
 
